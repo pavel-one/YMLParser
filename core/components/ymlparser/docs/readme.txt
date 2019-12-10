@@ -1,7 +1,7 @@
 --------------------
 YMLParser
 --------------------
-Author: John Doe <john@doe.com>
+Author: Pavel Zarubin <pavel@orendat.ru>
 --------------------
 
-A basic Extra for MODx Revolution.
+YML parser for MODx Revolution and miniShop2.
