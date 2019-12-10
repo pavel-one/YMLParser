@@ -1,0 +1,96 @@
+/* Grid */
+.ymlparser-ymlparser-row-disabled { font-style: italic; opacity: .6; color: #555; }
+.x-grid3-col-actions { padding: 3px 0 3px 5px; }
+
+/* Actions */
+.action-red { color: darkred !important; }
+.action-green { color: darkgreen !important; }
+.action-blue { color: cadetblue !important; }
+.action-yellow { color: goldenrod !important; }
+.action-gray { color: dimgray !important; }
+ul.ymlparser-row-actions { margin: 0; padding: 0; list-style: none; }
+ul.ymlparser-row-actions li { float: left; }
+ul.ymlparser-row-actions .ymlparser-btn { padding: 5px; margin-right: 2px; min-width: 26px; font-size: inherit; }
+
+/* Action menu */
+a.x-menu-item .x-menu-item-text, a.x-menu-item .x-menu-item-text .icon { cursor: pointer; }
+a.x-menu-item .x-menu-item-text .icon { line-height: 16px; top: auto; }
+.x-menu-list .icon { min-width: 1em; text-align: center; }
+.x-menu-list-item:hover .icon { color: inherit !important; }
+ul.ymlparser-row-actions .actions-menu { width: 40px; }
+ul.ymlparser-row-actions .actions-menu:after { content: " \f107"; }
+
+/* Search field */
+.x-field-search-clear,
+.x-field-search-go { border-left: 1px solid #e4e4e4 !important; }
+.x-field-search-clear:hover,
+.x-field-search-go:hover { border-left-color: transparent !important; }
+.x-field-search-clear:before { content: '\f00d' !important; }
+.x-field-search-go { right: 31px !important; border-radius: 0 !important; }
+.x-field-search-go:before { content: '\f002' !important; }
+
+/* Buttons */
+.ymlparser-btn { display: inline-block; margin-bottom: 0; font-weight: normal; text-align: center; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; background-image: none; border: 1px solid transparent; white-space: nowrap; padding: 6px 12px; font-size: 14px; line-height: 1.42857143; border-radius: 4px; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none }
+.ymlparser-btn:focus, .ymlparser-btn:active:focus, .ymlparser-btn.active:focus, .ymlparser-btn.focus, .ymlparser-btn:active.focus, .ymlparser-btn.active.focus { outline: thin dotted; outline: 5px auto -webkit-focus-ring-color; outline-offset: -2px }
+.ymlparser-btn:hover, .ymlparser-btn:focus, .ymlparser-btn.focus { color: #333; text-decoration: none }
+.ymlparser-btn:active, .ymlparser-btn.active { outline: 0; background-image: none; -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) }
+.ymlparser-btn.disabled, .ymlparser-btn[disabled], fieldset[disabled] .ymlparser-btn { cursor: not-allowed; opacity: .65; filter: alpha(opacity=65); -webkit-box-shadow: none; box-shadow: none }
+a.ymlparser-btn.disabled, fieldset[disabled] a.ymlparser-btn { pointer-events: none }
+.ymlparser-btn-default { color: #333; background-color: #fff; border-color: #ccc }
+.ymlparser-btn-default:focus, .ymlparser-btn-default.focus { color: #333; background-color: #e6e6e6; border-color: #8c8c8c }
+.ymlparser-btn-default:hover { color: #333; background-color: #e6e6e6; border-color: #adadad }
+.ymlparser-btn-default:active, .ymlparser-btn-default.active, .open > .dropdown-toggle.ymlparser-btn-default { color: #333; background-color: #e6e6e6; border-color: #adadad }
+.ymlparser-btn-default:active:hover, .ymlparser-btn-default.active:hover, .open > .dropdown-toggle.ymlparser-btn-default:hover, .ymlparser-btn-default:active:focus, .ymlparser-btn-default.active:focus, .open > .dropdown-toggle.ymlparser-btn-default:focus, .ymlparser-btn-default:active.focus, .ymlparser-btn-default.active.focus, .open > .dropdown-toggle.ymlparser-btn-default.focus { color: #333; background-color: #d4d4d4; border-color: #8c8c8c }
+.ymlparser-btn-default:active, .ymlparser-btn-default.active, .open > .dropdown-toggle.ymlparser-btn-default { background-image: none }
+.ymlparser-btn-default.disabled:hover, .ymlparser-btn-default[disabled]:hover, fieldset[disabled] .ymlparser-btn-default:hover, .ymlparser-btn-default.disabled:focus, .ymlparser-btn-default[disabled]:focus, fieldset[disabled] .ymlparser-btn-default:focus, .ymlparser-btn-default.disabled.focus, .ymlparser-btn-default[disabled].focus, fieldset[disabled] .ymlparser-btn-default.focus { background-color: #fff; border-color: #ccc }
+.ymlparser-btn-default .badge { color: #fff; background-color: #333 }
+.ymlparser-btn-primary { color: #fff; background-color: #337ab7; border-color: #2e6da4 }
+.ymlparser-btn-primary:focus, .ymlparser-btn-primary.focus { color: #fff; background-color: #286090; border-color: #122b40 }
+.ymlparser-btn-primary:hover { color: #fff; background-color: #286090; border-color: #204d74 }
+.ymlparser-btn-primary:active, .ymlparser-btn-primary.active, .open > .dropdown-toggle.ymlparser-btn-primary { color: #fff; background-color: #286090; border-color: #204d74 }
+.ymlparser-btn-primary:active:hover, .ymlparser-btn-primary.active:hover, .open > .dropdown-toggle.ymlparser-btn-primary:hover, .ymlparser-btn-primary:active:focus, .ymlparser-btn-primary.active:focus, .open > .dropdown-toggle.ymlparser-btn-primary:focus, .ymlparser-btn-primary:active.focus, .ymlparser-btn-primary.active.focus, .open > .dropdown-toggle.ymlparser-btn-primary.focus { color: #fff; background-color: #204d74; border-color: #122b40 }
+.ymlparser-btn-primary:active, .ymlparser-btn-primary.active, .open > .dropdown-toggle.ymlparser-btn-primary { background-image: none }
+.ymlparser-btn-primary.disabled:hover, .ymlparser-btn-primary[disabled]:hover, fieldset[disabled] .ymlparser-btn-primary:hover, .ymlparser-btn-primary.disabled:focus, .ymlparser-btn-primary[disabled]:focus, fieldset[disabled] .ymlparser-btn-primary:focus, .ymlparser-btn-primary.disabled.focus, .ymlparser-btn-primary[disabled].focus, fieldset[disabled] .ymlparser-btn-primary.focus { background-color: #337ab7; border-color: #2e6da4 }
+.ymlparser-btn-primary .badge { color: #337ab7; background-color: #fff }
+.ymlparser-btn-success { color: #fff; background-color: #5cb85c; border-color: #4cae4c }
+.ymlparser-btn-success:focus, .ymlparser-btn-success.focus { color: #fff; background-color: #449d44; border-color: #255625 }
+.ymlparser-btn-success:hover { color: #fff; background-color: #449d44; border-color: #398439 }
+.ymlparser-btn-success:active, .ymlparser-btn-success.active, .open > .dropdown-toggle.ymlparser-btn-success { color: #fff; background-color: #449d44; border-color: #398439 }
+.ymlparser-btn-success:active:hover, .ymlparser-btn-success.active:hover, .open > .dropdown-toggle.ymlparser-btn-success:hover, .ymlparser-btn-success:active:focus, .ymlparser-btn-success.active:focus, .open > .dropdown-toggle.ymlparser-btn-success:focus, .ymlparser-btn-success:active.focus, .ymlparser-btn-success.active.focus, .open > .dropdown-toggle.ymlparser-btn-success.focus { color: #fff; background-color: #398439; border-color: #255625 }
+.ymlparser-btn-success:active, .ymlparser-btn-success.active, .open > .dropdown-toggle.ymlparser-btn-success { background-image: none }
+.ymlparser-btn-success.disabled:hover, .ymlparser-btn-success[disabled]:hover, fieldset[disabled] .ymlparser-btn-success:hover, .ymlparser-btn-success.disabled:focus, .ymlparser-btn-success[disabled]:focus, fieldset[disabled] .ymlparser-btn-success:focus, .ymlparser-btn-success.disabled.focus, .ymlparser-btn-success[disabled].focus, fieldset[disabled] .ymlparser-btn-success.focus { background-color: #5cb85c; border-color: #4cae4c }
+.ymlparser-btn-success .badge { color: #5cb85c; background-color: #fff }
+.ymlparser-btn-info { color: #fff; background-color: #5bc0de; border-color: #46b8da }
+.ymlparser-btn-info:focus, .ymlparser-btn-info.focus { color: #fff; background-color: #31b0d5; border-color: #1b6d85 }
+.ymlparser-btn-info:hover { color: #fff; background-color: #31b0d5; border-color: #269abc }
+.ymlparser-btn-info:active, .ymlparser-btn-info.active, .open > .dropdown-toggle.ymlparser-btn-info { color: #fff; background-color: #31b0d5; border-color: #269abc }
+.ymlparser-btn-info:active:hover, .ymlparser-btn-info.active:hover, .open > .dropdown-toggle.ymlparser-btn-info:hover, .ymlparser-btn-info:active:focus, .ymlparser-btn-info.active:focus, .open > .dropdown-toggle.ymlparser-btn-info:focus, .ymlparser-btn-info:active.focus, .ymlparser-btn-info.active.focus, .open > .dropdown-toggle.ymlparser-btn-info.focus { color: #fff; background-color: #269abc; border-color: #1b6d85 }
+.ymlparser-btn-info:active, .ymlparser-btn-info.active, .open > .dropdown-toggle.ymlparser-btn-info { background-image: none }
+.ymlparser-btn-info.disabled:hover, .ymlparser-btn-info[disabled]:hover, fieldset[disabled] .ymlparser-btn-info:hover, .ymlparser-btn-info.disabled:focus, .ymlparser-btn-info[disabled]:focus, fieldset[disabled] .ymlparser-btn-info:focus, .ymlparser-btn-info.disabled.focus, .ymlparser-btn-info[disabled].focus, fieldset[disabled] .ymlparser-btn-info.focus { background-color: #5bc0de; border-color: #46b8da }
+.ymlparser-btn-info .badge { color: #5bc0de; background-color: #fff }
+.ymlparser-btn-warning { color: #fff; background-color: #f0ad4e; border-color: #eea236 }
+.ymlparser-btn-warning:focus, .ymlparser-btn-warning.focus { color: #fff; background-color: #ec971f; border-color: #985f0d }
+.ymlparser-btn-warning:hover { color: #fff; background-color: #ec971f; border-color: #d58512 }
+.ymlparser-btn-warning:active, .ymlparser-btn-warning.active, .open > .dropdown-toggle.ymlparser-btn-warning { color: #fff; background-color: #ec971f; border-color: #d58512 }
+.ymlparser-btn-warning:active:hover, .ymlparser-btn-warning.active:hover, .open > .dropdown-toggle.ymlparser-btn-warning:hover, .ymlparser-btn-warning:active:focus, .ymlparser-btn-warning.active:focus, .open > .dropdown-toggle.ymlparser-btn-warning:focus, .ymlparser-btn-warning:active.focus, .ymlparser-btn-warning.active.focus, .open > .dropdown-toggle.ymlparser-btn-warning.focus { color: #fff; background-color: #d58512; border-color: #985f0d }
+.ymlparser-btn-warning:active, .ymlparser-btn-warning.active, .open > .dropdown-toggle.ymlparser-btn-warning { background-image: none }
+.ymlparser-btn-warning.disabled:hover, .ymlparser-btn-warning[disabled]:hover, fieldset[disabled] .ymlparser-btn-warning:hover, .ymlparser-btn-warning.disabled:focus, .ymlparser-btn-warning[disabled]:focus, fieldset[disabled] .ymlparser-btn-warning:focus, .ymlparser-btn-warning.disabled.focus, .ymlparser-btn-warning[disabled].focus, fieldset[disabled] .ymlparser-btn-warning.focus { background-color: #f0ad4e; border-color: #eea236 }
+.ymlparser-btn-warning .badge { color: #f0ad4e; background-color: #fff }
+.ymlparser-btn-danger { color: #fff; background-color: #d9534f; border-color: #d43f3a }
+.ymlparser-btn-danger:focus, .ymlparser-btn-danger.focus { color: #fff; background-color: #c9302c; border-color: #761c19 }
+.ymlparser-btn-danger:hover { color: #fff; background-color: #c9302c; border-color: #ac2925 }
+.ymlparser-btn-danger:active, .ymlparser-btn-danger.active, .open > .dropdown-toggle.ymlparser-btn-danger { color: #fff; background-color: #c9302c; border-color: #ac2925 }
+.ymlparser-btn-danger:active:hover, .ymlparser-btn-danger.active:hover, .open > .dropdown-toggle.ymlparser-btn-danger:hover, .ymlparser-btn-danger:active:focus, .ymlparser-btn-danger.active:focus, .open > .dropdown-toggle.ymlparser-btn-danger:focus, .ymlparser-btn-danger:active.focus, .ymlparser-btn-danger.active.focus, .open > .dropdown-toggle.ymlparser-btn-danger.focus { color: #fff; background-color: #ac2925; border-color: #761c19 }
+.ymlparser-btn-danger:active, .ymlparser-btn-danger.active, .open > .dropdown-toggle.ymlparser-btn-danger { background-image: none }
+.ymlparser-btn-danger.disabled:hover, .ymlparser-btn-danger[disabled]:hover, fieldset[disabled] .ymlparser-btn-danger:hover, .ymlparser-btn-danger.disabled:focus, .ymlparser-btn-danger[disabled]:focus, fieldset[disabled] .ymlparser-btn-danger:focus, .ymlparser-btn-danger.disabled.focus, .ymlparser-btn-danger[disabled].focus, fieldset[disabled] .ymlparser-btn-danger.focus { background-color: #d9534f; border-color: #d43f3a }
+.ymlparser-btn-danger .badge { color: #d9534f; background-color: #fff }
+.ymlparser-btn-link { color: #337ab7; font-weight: normal; border-radius: 0 }
+.ymlparser-btn-link, .ymlparser-btn-link:active, .ymlparser-btn-link.active, .ymlparser-btn-link[disabled], fieldset[disabled] .ymlparser-btn-link { background-color: transparent; -webkit-box-shadow: none; box-shadow: none }
+.ymlparser-btn-link, .ymlparser-btn-link:hover, .ymlparser-btn-link:focus, .ymlparser-btn-link:active { border-color: transparent }
+.ymlparser-btn-link:hover, .ymlparser-btn-link:focus { color: #23527c; text-decoration: underline; background-color: transparent }
+.ymlparser-btn-link[disabled]:hover, fieldset[disabled] .ymlparser-btn-link:hover, .ymlparser-btn-link[disabled]:focus, fieldset[disabled] .ymlparser-btn-link:focus { color: #777; text-decoration: none }
+.ymlparser-btn-lg { padding: 10px 16px; font-size: 18px; line-height: 1.3333333; border-radius: 6px }
+.ymlparser-btn-sm { padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px }
+.ymlparser-btn-xs { padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px }
+.ymlparser-btn-block { display: block; width: 100% }
+.ymlparser-btn-block + .ymlparser-btn-block { margin-top: 5px }
