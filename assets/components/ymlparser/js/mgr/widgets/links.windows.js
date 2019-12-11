@@ -29,11 +29,11 @@ Ext.extend(YMLParser.window.CreateItem, MODx.Window, {
             anchor: '99%',
             allowBlank: false,
         }, {
-            xtype: 'textarea',
-            fieldLabel: _('ymlparser_item_description'),
-            name: 'description',
-            id: config.id + '-description',
-            height: 150,
+            xtype: 'textfield',
+            fieldLabel: _('ymlparser_item_link'),
+            name: 'link',
+            id: config.id + '-link',
+            // height: 150,
             anchor: '99%'
         }, {
             xtype: 'xcheckbox',
@@ -86,12 +86,20 @@ Ext.extend(YMLParser.window.UpdateItem, MODx.Window, {
             anchor: '99%',
             allowBlank: false,
         }, {
-            xtype: 'textarea',
-            fieldLabel: _('ymlparser_item_description'),
-            name: 'description',
-            id: config.id + '-description',
-            anchor: '99%',
-            height: 150,
+            xtype: 'textfield',
+            fieldLabel: _('ymlparser_item_link'),
+            name: 'link',
+            id: config.id + '-link',
+            // height: 150,
+            anchor: '99%'
+        }, {
+            xtype: 'textfield',
+            fieldLabel: _('ymlparser_item_parse_date'),
+            name: 'parse_date',
+            id: config.id + '-parse_date',
+            // height: 150,
+            disabled: true,
+            anchor: '99%'
         }, {
             xtype: 'xcheckbox',
             boxLabel: _('ymlparser_item_active'),
