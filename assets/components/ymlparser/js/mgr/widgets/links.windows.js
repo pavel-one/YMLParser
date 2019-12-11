@@ -34,7 +34,12 @@ Ext.extend(YMLParser.window.CreateItem, MODx.Window, {
             name: 'link',
             id: config.id + '-link',
             // height: 150,
-            anchor: '99%'
+            allowBlank: false,
+            anchor: '99%',
+            parentID: config.id,
+            listeners: {
+                change: YMLParser.utils.changeLink
+            }
         }, {
             xtype: 'xcheckbox',
             boxLabel: _('ymlparser_item_active'),

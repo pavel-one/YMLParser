@@ -20,8 +20,7 @@ YMLParser.utils.getMenu = function (actions, grid, selected) {
                 menu.push('-');
             }
             continue;
-        }
-        else if (menu.length > 0 && !has_delete && (/^remove/i.test(a['action']) || /^delete/i.test(a['action']))) {
+        } else if (menu.length > 0 && !has_delete && (/^remove/i.test(a['action']) || /^delete/i.test(a['action']))) {
             menu.push('-');
             has_delete = true;
         }
@@ -29,19 +28,17 @@ YMLParser.utils.getMenu = function (actions, grid, selected) {
         if (selected.length > 1) {
             if (!a['multiple']) {
                 continue;
-            }
-            else if (typeof(a['multiple']) == 'string') {
+            } else if (typeof (a['multiple']) == 'string') {
                 a['title'] = a['multiple'];
             }
         }
 
         icon = a['icon'] ? a['icon'] : '';
-        if (typeof(a['cls']) == 'object') {
-            if (typeof(a['cls']['menu']) != 'undefined') {
+        if (typeof (a['cls']) == 'object') {
+            if (typeof (a['cls']['menu']) != 'undefined') {
                 icon += ' ' + a['cls']['menu'];
             }
-        }
-        else {
+        } else {
             cls = a['cls'] ? a['cls'] : '';
         }
         title = a['title'] ? a['title'] : a['title'];
@@ -73,12 +70,11 @@ YMLParser.utils.renderActions = function (value, props, row) {
         }
 
         icon = a['icon'] ? a['icon'] : '';
-        if (typeof(a['cls']) == 'object') {
-            if (typeof(a['cls']['button']) != 'undefined') {
+        if (typeof (a['cls']) == 'object') {
+            if (typeof (a['cls']['button']) != 'undefined') {
                 icon += ' ' + a['cls']['button'];
             }
-        }
-        else {
+        } else {
             cls = a['cls'] ? a['cls'] : '';
         }
         action = a['action'] ? a['action'] : '';
@@ -96,4 +92,28 @@ YMLParser.utils.renderActions = function (value, props, row) {
         '<ul class="ymlparser-row-actions">{0}</ul>',
         res.join('')
     );
+};
+
+YMLParser.utils.changeLink = function (extObj, newVal, oldVal) {
+    let mask = new Ext.LoadMask(extObj.parentID, {msg: "Проверяем ссылку"});
+    mask.show();
+    Ext.Ajax.request({
+        url: YMLParser.config.connector_url,
+        params: {
+            link: newVal,
+            action: 'mgr/link/checklink',
+        },
+        success: function(response, opts){
+            let obj = Ext.decode(response.responseText);
+            if (!obj.success) {
+                Ext.Msg.alert(_('ymlparser_error_msg_title'), obj.message);
+            }
+
+            mask.hide();
+        },
+        failure: function(response, opts) {
+            Ext.Msg.alert(_('ymlparser_error_msg_title'), _('ymlparser_error_msg_hz'));
+            mask.hide();
+        },
+    });
 };
