@@ -8,7 +8,7 @@ YMLParser.window.CreateItem = function (config) {
         width: 550,
         autoHeight: true,
         url: YMLParser.config.connector_url,
-        action: 'mgr/item/create',
+        action: 'mgr/link/create',
         fields: this.getFields(config),
         keys: [{
             key: Ext.EventObject.ENTER, shift: true, fn: function () {

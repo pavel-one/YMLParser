@@ -1,9 +1,9 @@
 <?php
 
-class YMLParserOfficeItemGetListProcessor extends modObjectGetListProcessor
+class YMLParserLinkGetListProcessor extends modObjectGetListProcessor
 {
-    public $objectType = 'YMLParserItem';
-    public $classKey = 'YMLParserItem';
+    public $objectType = 'YMLParserLink';
+    public $classKey = 'YMLParserLink';
     public $defaultSortField = 'id';
     public $defaultSortDirection = 'DESC';
     //public $permission = 'list';
@@ -36,7 +36,6 @@ class YMLParserOfficeItemGetListProcessor extends modObjectGetListProcessor
         if ($query) {
             $c->where([
                 'name:LIKE' => "%{$query}%",
-                'OR:description:LIKE' => "%{$query}%",
             ]);
         }
 
@@ -57,7 +56,7 @@ class YMLParserOfficeItemGetListProcessor extends modObjectGetListProcessor
         // Edit
         $array['actions'][] = [
             'cls' => '',
-            'icon' => 'fa fa-edit',
+            'icon' => 'icon icon-edit',
             'title' => $this->modx->lexicon('ymlparser_item_update'),
             //'multiple' => $this->modx->lexicon('ymlparser_items_update'),
             'action' => 'updateItem',
@@ -68,7 +67,7 @@ class YMLParserOfficeItemGetListProcessor extends modObjectGetListProcessor
         if (!$array['active']) {
             $array['actions'][] = [
                 'cls' => '',
-                'icon' => 'fa fa-power-off action-green',
+                'icon' => 'icon icon-power-off action-green',
                 'title' => $this->modx->lexicon('ymlparser_item_enable'),
                 'multiple' => $this->modx->lexicon('ymlparser_items_enable'),
                 'action' => 'enableItem',
@@ -78,7 +77,7 @@ class YMLParserOfficeItemGetListProcessor extends modObjectGetListProcessor
         } else {
             $array['actions'][] = [
                 'cls' => '',
-                'icon' => 'fa fa-power-off action-gray',
+                'icon' => 'icon icon-power-off action-gray',
                 'title' => $this->modx->lexicon('ymlparser_item_disable'),
                 'multiple' => $this->modx->lexicon('ymlparser_items_disable'),
                 'action' => 'disableItem',
@@ -90,7 +89,7 @@ class YMLParserOfficeItemGetListProcessor extends modObjectGetListProcessor
         // Remove
         $array['actions'][] = [
             'cls' => '',
-            'icon' => 'fa fa-trash-o action-red',
+            'icon' => 'icon icon-trash-o action-red',
             'title' => $this->modx->lexicon('ymlparser_item_remove'),
             'multiple' => $this->modx->lexicon('ymlparser_items_remove'),
             'action' => 'removeItem',
@@ -103,4 +102,4 @@ class YMLParserOfficeItemGetListProcessor extends modObjectGetListProcessor
 
 }
 
-return 'YMLParserOfficeItemGetListProcessor';
+return 'YMLParserLinkGetListProcessor';

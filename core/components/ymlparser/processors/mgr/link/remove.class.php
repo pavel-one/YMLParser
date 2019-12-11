@@ -1,11 +1,11 @@
 <?php
 
-class YMLParserItemDisableProcessor extends modObjectProcessor
+class YMLParserLinkRemoveProcessor extends modObjectProcessor
 {
-    public $objectType = 'YMLParserItem';
-    public $classKey = 'YMLParserItem';
+    public $objectType = 'YMLParserLink';
+    public $classKey = 'YMLParserLink';
     public $languageTopics = ['ymlparser'];
-    //public $permission = 'save';
+    //public $permission = 'remove';
 
 
     /**
@@ -28,8 +28,7 @@ class YMLParserItemDisableProcessor extends modObjectProcessor
                 return $this->failure($this->modx->lexicon('ymlparser_item_err_nf'));
             }
 
-            $object->set('active', false);
-            $object->save();
+            $object->remove();
         }
 
         return $this->success();
@@ -37,4 +36,4 @@ class YMLParserItemDisableProcessor extends modObjectProcessor
 
 }
 
-return 'YMLParserItemDisableProcessor';
+return 'YMLParserLinkRemoveProcessor';

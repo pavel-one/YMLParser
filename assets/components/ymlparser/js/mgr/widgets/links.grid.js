@@ -10,7 +10,7 @@ YMLParser.grid.Items = function (config) {
         tbar: this.getTopBar(config),
         sm: new Ext.grid.CheckboxSelectionModel(),
         baseParams: {
-            action: 'mgr/item/getlist'
+            action: 'mgr/link/getlist'
         },
         listeners: {
             rowDblClick: function (grid, rowIndex, e) {
@@ -73,10 +73,9 @@ Ext.extend(YMLParser.grid.Items, MODx.grid.Grid, {
     },
 
     updateItem: function (btn, e, row) {
-        if (typeof(row) != 'undefined') {
+        if (typeof (row) != 'undefined') {
             this.menu.record = row.data;
-        }
-        else if (!this.menu.record) {
+        } else if (!this.menu.record) {
             return false;
         }
         var id = this.menu.record.id;
@@ -84,7 +83,7 @@ Ext.extend(YMLParser.grid.Items, MODx.grid.Grid, {
         MODx.Ajax.request({
             url: this.config.url,
             params: {
-                action: 'mgr/item/get',
+                action: 'mgr/link/get',
                 id: id
             },
             listeners: {
@@ -125,7 +124,7 @@ Ext.extend(YMLParser.grid.Items, MODx.grid.Grid, {
                 : _('ymlparser_item_remove_confirm'),
             url: this.config.url,
             params: {
-                action: 'mgr/item/remove',
+                action: 'mgr/link/remove',
                 ids: Ext.util.JSON.encode(ids),
             },
             listeners: {
@@ -147,7 +146,7 @@ Ext.extend(YMLParser.grid.Items, MODx.grid.Grid, {
         MODx.Ajax.request({
             url: this.config.url,
             params: {
-                action: 'mgr/item/disable',
+                action: 'mgr/link/disable',
                 ids: Ext.util.JSON.encode(ids),
             },
             listeners: {
@@ -168,7 +167,7 @@ Ext.extend(YMLParser.grid.Items, MODx.grid.Grid, {
         MODx.Ajax.request({
             url: this.config.url,
             params: {
-                action: 'mgr/item/enable',
+                action: 'mgr/link/enable',
                 ids: Ext.util.JSON.encode(ids),
             },
             listeners: {
@@ -182,7 +181,7 @@ Ext.extend(YMLParser.grid.Items, MODx.grid.Grid, {
     },
 
     getFields: function () {
-        return ['id', 'name', 'description', 'active', 'actions'];
+        return ['id', 'name', 'link', 'parse_date', 'active', 'actions'];
     },
 
     getColumns: function () {
@@ -197,8 +196,13 @@ Ext.extend(YMLParser.grid.Items, MODx.grid.Grid, {
             sortable: true,
             width: 200,
         }, {
-            header: _('ymlparser_item_description'),
-            dataIndex: 'description',
+            header: _('ymlparser_item_link'),
+            dataIndex: 'link',
+            sortable: true,
+            width: 200,
+        }, {
+            header: _('ymlparser_item_parse_date'),
+            dataIndex: 'parse_date',
             sortable: false,
             width: 250,
         }, {
@@ -245,13 +249,12 @@ Ext.extend(YMLParser.grid.Items, MODx.grid.Grid, {
         var elem = e.getTarget();
         if (elem.nodeName == 'BUTTON') {
             var row = this.getSelectionModel().getSelected();
-            if (typeof(row) != 'undefined') {
+            if (typeof (row) != 'undefined') {
                 var action = elem.getAttribute('action');
                 if (action == 'showMenu') {
                     var ri = this.getStore().find('id', row.id);
                     return this._showMenu(this, ri, e);
-                }
-                else if (typeof this[action] === 'function') {
+                } else if (typeof this[action] === 'function') {
                     this.menu.record = row.data;
                     return this[action](this, e);
                 }

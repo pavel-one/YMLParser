@@ -1,9 +1,9 @@
 <?php
 
-class YMLParserOfficeItemCreateProcessor extends modObjectCreateProcessor
+class YMLParserLinkCreateProcessor extends modObjectCreateProcessor
 {
-    public $objectType = 'YMLParserItem';
-    public $classKey = 'YMLParserItem';
+    public $objectType = 'YMLParserLink';
+    public $classKey = 'YMLParserLink';
     public $languageTopics = ['ymlparser'];
     //public $permission = 'create';
 
@@ -25,4 +25,4 @@ class YMLParserOfficeItemCreateProcessor extends modObjectCreateProcessor
 
 }
 
-return 'YMLParserOfficeItemCreateProcessor';
+return 'YMLParserLinkCreateProcessor';

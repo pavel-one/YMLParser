@@ -1,16 +1,16 @@
 <?php
 
-class YMLParserOfficeItemUpdateProcessor extends modObjectUpdateProcessor
+class YMLParserLinkUpdateProcessor extends modObjectUpdateProcessor
 {
-    public $objectType = 'YMLParserItem';
-    public $classKey = 'YMLParserItem';
+    public $objectType = 'YMLParserLink';
+    public $classKey = 'YMLParserLink';
     public $languageTopics = ['ymlparser'];
     //public $permission = 'save';
 
 
     /**
-     * We do a special check of permission
-     * because our objects is not an instances of modAccessibleObject
+     * We doing special check of permission
+     * because of our objects is not an instances of modAccessibleObject
      *
      * @return bool|string
      */
@@ -45,4 +45,4 @@ class YMLParserOfficeItemUpdateProcessor extends modObjectUpdateProcessor
     }
 }
 
-return 'YMLParserOfficeItemUpdateProcessor';
+return 'YMLParserLinkUpdateProcessor';

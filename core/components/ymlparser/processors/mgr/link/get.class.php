@@ -1,9 +1,9 @@
 <?php
 
-class YMLParserOfficeItemGetProcessor extends modObjectGetProcessor
+class YMLParserLinkGetProcessor extends modObjectGetProcessor
 {
-    public $objectType = 'YMLParserItem';
-    public $classKey = 'YMLParserItem';
+    public $objectType = 'YMLParserLink';
+    public $classKey = 'YMLParserLink';
     public $languageTopics = ['ymlparser:default'];
     //public $permission = 'view';
 
@@ -25,4 +25,4 @@ class YMLParserOfficeItemGetProcessor extends modObjectGetProcessor
 
 }
 
-return 'YMLParserOfficeItemGetProcessor';
+return 'YMLParserLinkGetProcessor';
