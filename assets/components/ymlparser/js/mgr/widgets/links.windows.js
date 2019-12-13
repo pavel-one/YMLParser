@@ -41,6 +41,8 @@ Ext.extend(YMLParser.window.CreateItem, MODx.Window, {
                 change: YMLParser.utils.changeLink
             }
         }, {
+            html: '<div id="tree-view"></div>',
+        }, {
             xtype: 'xcheckbox',
             boxLabel: _('ymlparser_item_active'),
             name: 'active',

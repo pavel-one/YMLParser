@@ -8,6 +8,10 @@
         <field key="parse_date" dbtype="datetime" phptype="datetime" null="true" />
         <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
 
+        <field key="company" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="url" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
+        <field key="parent_id" dbtype="int" precision="10" phptype="integer" null="false"/>
+
         <index alias="name" name="name" primary="false" unique="false" type="BTREE">
             <column key="name" length="" collation="A" null="false"/>
         </index>

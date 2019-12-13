@@ -4,7 +4,7 @@ include_once 'setting.inc.php';
 $_lang['ymlparser'] = 'YMLParser';
 $_lang['ymlparser_menu_desc'] = 'YML парсер';
 $_lang['ymlparser_intro_msg'] = 'Вы можете выделять сразу несколько задач при помощи Shift или Ctrl.';
-$_lang['ymlparser_error_msg_title'] = 'Вы можете выделять сразу несколько задач при помощи Shift или Ctrl.';
+$_lang['ymlparser_error_msg_title'] = 'Ошибка';
 $_lang['ymlparser_error_msg_hz'] = 'Неизвестная ошибка.';
 
 $_lang['ymlparser_items'] = 'Задачи';

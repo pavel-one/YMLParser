@@ -3,14 +3,14 @@
 class YMLParserLinkCheckProcessor extends modProcessor
 {
     public $languageTopics = ['ymlparser'];
-    /** @var XMLReader $reader */
-    public $reader;
-    /** @var XMLReader $xml */
-    public $xml;
+
+    /** @var YMLParser $YMLParser */
+    public $YMLParser;
 
     public function initialize()
     {
-        $this->reader = new XMLReader();
+        $this->YMLParser = $this->modx->getService('YMLParser', 'YMLParser', MODX_CORE_PATH . 'components/ymlparser/model/', []);
+
         return parent::initialize();
     }
 
@@ -30,11 +30,12 @@ class YMLParserLinkCheckProcessor extends modProcessor
         $mime = explode(';', $headers[3])[0];
         if ($mime != 'Content-Type: text/xml') return $this->failure('Это не xml документ');
 
-        if (!$this->xml = $this->reader->open($link)) return $this->failure('Ошибка чтения xml');
+        $xml = file_get_contents($link);
+
+        $data = $this->YMLParser->prepareXML($xml);
 
 
-
-        return $this->success('Успешно');
+        return $this->success('Успешно', $data);
     }
 
 }

@@ -52,6 +52,9 @@ class YMLParserHomeManagerController extends modExtraManagerController
      */
     public function loadCustomCssJs()
     {
+        $this->addJavascript('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js');
+        $this->addJavascript('https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js');
+        $this->addCss('https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css');
         $this->addCss($this->YMLParser->config['cssUrl'] . 'mgr/main.css');
         $this->addJavascript($this->YMLParser->config['jsUrl'] . 'mgr/ymlparser.js');
         $this->addJavascript($this->YMLParser->config['jsUrl'] . 'mgr/misc/utils.js');

@@ -103,15 +103,40 @@ YMLParser.utils.changeLink = function (extObj, newVal, oldVal) {
             link: newVal,
             action: 'mgr/link/checklink',
         },
-        success: function(response, opts){
+        success: function (response, opts) {
             let obj = Ext.decode(response.responseText);
             if (!obj.success) {
                 Ext.Msg.alert(_('ymlparser_error_msg_title'), obj.message);
             }
 
+            $('#tree-view').jstree({
+                'core': {
+                    'data': [
+                        'Simple root node',
+                        {
+                            'text': 'Root node 2',
+                            'state': {
+                                'opened': true,
+                                'selected': true
+                            },
+                            'children': [
+                                {
+                                    'text': 'Child 1',
+                                    'icon': 'icon icon-folder'
+                                },
+                                {
+                                    'text': 'Child 2',
+                                    'icon': 'icon icon-shopping-cart'
+                                },
+                            ]
+                        }
+                    ]
+                }
+            });
+
             mask.hide();
         },
-        failure: function(response, opts) {
+        failure: function (response, opts) {
             Ext.Msg.alert(_('ymlparser_error_msg_title'), _('ymlparser_error_msg_hz'));
             mask.hide();
         },
