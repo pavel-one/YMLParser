@@ -113,7 +113,7 @@ class YMLParser
         return $tree;
     }
 
-    private function _prepareTree(&$list, $parent, $products)
+    protected function _prepareTree(&$list, $parent, $products)
     {
         $tree = [];
 
