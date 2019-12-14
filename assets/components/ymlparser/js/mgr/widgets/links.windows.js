@@ -6,7 +6,9 @@ YMLParser.window.CreateItem = function (config) {
     Ext.applyIf(config, {
         title: _('ymlparser_item_create'),
         width: 550,
-        autoHeight: true,
+        // autoHeight: true,
+        // autoScroll: true,
+        height: 400,
         url: YMLParser.config.connector_url,
         action: 'mgr/link/create',
         fields: this.getFields(config),

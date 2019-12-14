@@ -95,10 +95,13 @@ YMLParser.utils.renderActions = function (value, props, row) {
 };
 
 YMLParser.utils.changeLink = function (extObj, newVal, oldVal) {
-    let mask = new Ext.LoadMask(extObj.parentID, {msg: "Проверяем ссылку"});
+    let mask = new Ext.LoadMask(extObj.parentID, {msg: "Парсим структуру"}),
+        self = this,
+        $tree = $('#tree-view');
     mask.show();
     Ext.Ajax.request({
         url: YMLParser.config.connector_url,
+        timeout: 100000,
         params: {
             link: newVal,
             action: 'mgr/link/checklink',
@@ -107,38 +110,30 @@ YMLParser.utils.changeLink = function (extObj, newVal, oldVal) {
             let obj = Ext.decode(response.responseText);
             if (!obj.success) {
                 Ext.Msg.alert(_('ymlparser_error_msg_title'), obj.message);
-            }
-
-            $('#tree-view').jstree({
-                'core': {
-                    'data': [
-                        'Simple root node',
-                        {
-                            'text': 'Root node 2',
-                            'state': {
-                                'opened': true,
-                                'selected': true
-                            },
-                            'children': [
-                                {
-                                    'text': 'Child 1',
-                                    'icon': 'icon icon-folder'
-                                },
-                                {
-                                    'text': 'Child 2',
-                                    'icon': 'icon icon-shopping-cart'
-                                },
-                            ]
-                        }
-                    ]
+                if ($tree.hasClass('jstree')) {
+                    $tree.jstree().destroy();
                 }
-            });
+            } else {
+                if ($tree.hasClass('jstree')) {
+                    $tree.jstree().destroy();
+                }
+                setTimeout(function () {
+                    $tree.jstree({
+                        'core': {
+                            'data': obj.object.tree,
+                        }
+                    });
+                }, 500)
+            }
 
             mask.hide();
         },
         failure: function (response, opts) {
-            Ext.Msg.alert(_('ymlparser_error_msg_title'), _('ymlparser_error_msg_hz'));
             mask.hide();
+            if ($tree.hasClass('jstree')) {
+                $tree.jstree().destroy();
+            }
+            Ext.Msg.alert(_('ymlparser_error_msg_title'), _('ymlparser_error_msg_hz'));
         },
     });
 };

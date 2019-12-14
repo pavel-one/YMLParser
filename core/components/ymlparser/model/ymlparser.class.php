@@ -41,18 +41,52 @@ class YMLParser
     {
         $this->document->loadXml($xml);
         $categories = $this->document->find('categories category');
+        $offers = $this->document->find('offers offer');
 
-        $tree = $this->createTree($categories);
+        $products = $this->createProductsArray($offers);
+        $tree = $this->createTree($categories, $products['products_parents']);
 
         $out = [
             'tree' => $tree,
+            'products' => $products
         ];
 
         return $out;
 
     }
 
-    public function createTree(array $categoriesDOM)
+    public function createProductsArray(array $productsDOM)
+    {
+        $out = [];
+
+
+        /** @var \DiDom\Element $item */
+        foreach ($productsDOM as $item) {
+
+            $name = $item->first('name')
+                ? $item->first('name')->text()
+                : $item->first('model')->text();
+            $parentID = $item->first('categoryId')
+                ? $item->first('categoryId')->text()
+                : 0;
+
+            $product = [
+                'id' => $item->attr('id'),
+                'text' => $name,
+                'url' => $item->first('url') ? $item->first('url')->text() : '',
+                'vendor' => $item->first('vendor') ? $item->first('vendor')->text() : '',
+                'price' => $item->first('price') ? $item->first('price')->text() : '',
+                'icon' => 'icon icon-shopping-cart',
+            ];
+
+            $out['products_parents'][$parentID][] = $product;
+            $out['products_list'][] = $product;
+        }
+
+        return $out;
+    }
+
+    public function createTree(array $categoriesDOM, array $products)
     {
         $categoriesArray = [];
         /** @var \DiDom\Element $item */
@@ -70,19 +104,29 @@ class YMLParser
             $parentsArray[$item['parentId']][] = $item;
         }
 
-        $tree = $this->_prepareTree($parentsArray, $parentsArray[0]);
+        $firstKey = array_key_first($parentsArray);
+        $tree = $this->_prepareTree($parentsArray, $parentsArray[$firstKey], $products);
 
-        $this->modx->log(1, print_r($tree, 1));
+
+//        $this->modx->log(1, print_r($tree, 1));
 
         return $tree;
     }
 
-    private function _prepareTree(&$list, $parent)
+    private function _prepareTree(&$list, $parent, $products)
     {
         $tree = [];
+
         foreach ($parent as $item) {
-            if(isset($list[$item['id']])){
-                $item['children'] = $this->_prepareTree($list, $list[$item['id']]);
+            if (isset($list[$item['id']])) {
+                $item['children'] = $this->_prepareTree($list, $list[$item['id']], $products);
+            }
+            if (isset($products[$item['id']])) {
+                if (isset($item['children'])) {
+                    $item['children'] = array_merge($item['children'], $products[$item['id']]);
+                } else {
+                    $item['children'] = $products[$item['id']];
+                }
             }
             $tree[] = $item;
         }
