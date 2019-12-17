@@ -25,6 +25,8 @@ foreach ($tasks as $task) {
 
     if (!$repeat) {
         $task->set('active', null);
-        $task->save();
     }
+
+    $task->set('parse_date', date('d.m.Y G:i'));
+    $task->save();
 }
