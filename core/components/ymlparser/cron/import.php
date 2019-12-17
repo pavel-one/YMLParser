@@ -19,5 +19,6 @@ $tasks = $modx->getCollection('YMLParserLink', [
 
 /** @var YMLParserLink $task */
 foreach ($tasks as $task) {
-    $YMLParser->importTree($task);
+    $parentID = $task->get('parent_id') ?: 0;
+    $YMLParser->importTree($task, $parentID);
 }

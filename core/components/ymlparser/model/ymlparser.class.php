@@ -140,21 +140,32 @@ class YMLParser
     }
 
 
-    public function importTree(YMLParserLink $link)
+    /**
+     * @param YMLParserLink $link
+     * @param int $parentID
+     * @return bool
+     */
+    public function importTree(YMLParserLink $link, int $parentID)
     {
         $tree = $link->getTree();
         if (!$tree) {
             return false;
         }
 
-        $this->importTask($tree);
-
-//        $this->modx->log(1, print_r($tree, true));
+        $this->importTask($tree, $parentID);
 
     }
 
-    public function importTask(array $tree, $parentID = 2) //TODO: parent менить
+    /**
+     * @param array $tree
+     * @param int $parentID
+     * @return bool
+     */
+    public function importTask(array $tree, int $parentID)
     {
+        if (!$tree) {
+            return false;
+        }
         foreach ($tree as $item) {
             if (isset($item['isCategory'])) {
 
