@@ -97,7 +97,7 @@ YMLParser.utils.renderActions = function (value, props, row) {
 YMLParser.utils.changeLink = function (extObj, newVal, oldVal) {
     let mask = new Ext.LoadMask(extObj.parentID, {msg: "Парсим структуру"}),
         self = this,
-        $tree = $('#tree-view');
+        $tree = $('#' + extObj.configID + '-tree-view');
     mask.show();
     Ext.Ajax.request({
         url: YMLParser.config.connector_url,

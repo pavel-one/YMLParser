@@ -35,7 +35,7 @@ Ext.extend(YMLParser.window.CreateItem, MODx.Window, {
             fieldLabel: _('ymlparser_item_link'),
             name: 'link',
             id: config.id + '-link',
-            // height: 150,
+            configID: config.id,
             allowBlank: false,
             anchor: '99%',
             parentID: config.id,
@@ -45,9 +45,9 @@ Ext.extend(YMLParser.window.CreateItem, MODx.Window, {
         }, {
             xtype: 'ymlparser-combo-cat',
             name: 'parent_id',
-            fieldLabel: 'Категория'
+            fieldLabel: 'Родительская категория'
         }, {
-            html: '<div id="tree-view"></div>',
+            html: '<div id="' + config.id + '-tree-view"></div>',
         }, {
             xtype: 'xcheckbox',
             boxLabel: _('ymlparser_item_active'),
@@ -103,7 +103,7 @@ Ext.extend(YMLParser.window.UpdateItem, MODx.Window, {
             fieldLabel: _('ymlparser_item_link'),
             name: 'link',
             id: config.id + '-link',
-            // height: 150,
+            configID: config.id,
             allowBlank: false,
             anchor: '99%',
             parentID: config.id,
@@ -113,9 +113,9 @@ Ext.extend(YMLParser.window.UpdateItem, MODx.Window, {
         }, {
             xtype: 'ymlparser-combo-cat',
             name: 'parent_id',
-            fieldLabel: 'Категория'
+            fieldLabel: 'Родительская категория'
         }, {
-            html: '<div id="tree-view"></div>',
+            html: '<div id="' + config.id + '-tree-view"></div>',
         }, {
             xtype: 'textfield',
             fieldLabel: _('ymlparser_item_parse_date'),
