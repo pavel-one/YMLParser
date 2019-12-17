@@ -43,6 +43,10 @@ Ext.extend(YMLParser.window.CreateItem, MODx.Window, {
                 change: YMLParser.utils.changeLink
             }
         }, {
+            xtype: 'ymlparser-combo-cat',
+            name: 'parent_id',
+            fieldLabel: 'Категория'
+        }, {
             html: '<div id="tree-view"></div>',
         }, {
             xtype: 'xcheckbox',
@@ -70,7 +74,7 @@ YMLParser.window.UpdateItem = function (config) {
         width: 550,
         autoHeight: true,
         url: YMLParser.config.connector_url,
-        action: 'mgr/item/update',
+        action: 'mgr/link/update',
         fields: this.getFields(config),
         keys: [{
             key: Ext.EventObject.ENTER, shift: true, fn: function () {
@@ -100,7 +104,18 @@ Ext.extend(YMLParser.window.UpdateItem, MODx.Window, {
             name: 'link',
             id: config.id + '-link',
             // height: 150,
-            anchor: '99%'
+            allowBlank: false,
+            anchor: '99%',
+            parentID: config.id,
+            listeners: {
+                change: YMLParser.utils.changeLink
+            }
+        }, {
+            xtype: 'ymlparser-combo-cat',
+            name: 'parent_id',
+            fieldLabel: 'Категория'
+        }, {
+            html: '<div id="tree-view"></div>',
         }, {
             xtype: 'textfield',
             fieldLabel: _('ymlparser_item_parse_date'),

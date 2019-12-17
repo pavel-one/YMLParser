@@ -8,9 +8,8 @@
         <field key="parse_date" dbtype="datetime" phptype="datetime" null="true" />
         <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
 
-        <field key="company" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
-        <field key="url" dbtype="varchar" precision="255" phptype="string" null="true" default=""/>
         <field key="parent_id" dbtype="int" precision="10" phptype="integer" null="false"/>
+        <field key="properties" dbtype="text" phptype="json" null="true"/>
 
         <index alias="name" name="name" primary="false" unique="false" type="BTREE">
             <column key="name" length="" collation="A" null="false"/>
@@ -18,6 +17,8 @@
         <index alias="active" name="active" primary="false" unique="false" type="BTREE">
             <column key="active" length="" collation="A" null="false"/>
         </index>
+
+        <aggregate alias="Category" class="msCategory" local="parent_id" foreign="id" cardinality="one" owner="foreign"/>
     </object>
 
 </model>
