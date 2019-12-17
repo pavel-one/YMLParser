@@ -12,6 +12,7 @@ $_lang['ymlparser_item_id'] = 'Id';
 $_lang['ymlparser_item_name'] = 'Название';
 $_lang['ymlparser_item_link'] = 'Ссылка';
 $_lang['ymlparser_item_parse_date'] = 'Дата парсинга';
+$_lang['ymlparser_item_repeat'] = 'Повторять';
 $_lang['ymlparser_item_active'] = 'Активно';
 
 $_lang['ymlparser_item_create'] = 'Создать задачу';

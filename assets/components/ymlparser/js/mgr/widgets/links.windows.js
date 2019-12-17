@@ -50,6 +50,11 @@ Ext.extend(YMLParser.window.CreateItem, MODx.Window, {
             html: '<div id="' + config.id + '-tree-view"></div>',
         }, {
             xtype: 'xcheckbox',
+            boxLabel: _('ymlparser_item_repeat'),
+            name: 'repeat',
+            id: config.id + '-repeat',
+        }, {
+            xtype: 'xcheckbox',
             boxLabel: _('ymlparser_item_active'),
             name: 'active',
             id: config.id + '-active',
@@ -124,6 +129,11 @@ Ext.extend(YMLParser.window.UpdateItem, MODx.Window, {
             // height: 150,
             disabled: true,
             anchor: '99%'
+        }, {
+            xtype: 'xcheckbox',
+            boxLabel: _('ymlparser_item_repeat'),
+            name: 'repeat',
+            id: config.id + '-repeat',
         }, {
             xtype: 'xcheckbox',
             boxLabel: _('ymlparser_item_active'),
