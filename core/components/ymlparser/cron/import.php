@@ -19,6 +19,12 @@ $tasks = $modx->getCollection('YMLParserLink', [
 
 /** @var YMLParserLink $task */
 foreach ($tasks as $task) {
+    $repeat = $task->get('repeat');
     $parentID = $task->get('parent_id') ?: 0;
     $YMLParser->importTree($task, $parentID);
+
+    if (!$repeat) {
+        $task->set('active', null);
+        $task->save();
+    }
 }
