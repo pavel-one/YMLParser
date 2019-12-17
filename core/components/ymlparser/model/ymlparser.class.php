@@ -37,6 +37,10 @@ class YMLParser
         $this->modx->lexicon->load('ymlparser:default');
     }
 
+    /**
+     * @param string $xml
+     * @return array
+     */
     public function prepareXML($xml)
     {
         $this->document->loadXml($xml);
@@ -94,6 +98,7 @@ class YMLParser
             $categoriesArray[] = [
                 'id' => $item->attr('id'),
                 'parentId' => $item->attr('parentId') ?: 0,
+                'isCategory' => true,
                 'text' => $item->text(),
             ];
         }
@@ -132,6 +137,148 @@ class YMLParser
         }
 
         return $tree;
+    }
+
+
+    public function importTree(YMLParserLink $link)
+    {
+        $tree = $link->getTree();
+        if (!$tree) {
+            return false;
+        }
+
+        $this->importTask($tree);
+
+//        $this->modx->log(1, print_r($tree, true));
+
+    }
+
+    public function importTask(array $tree, $parentID = 2) //TODO: parent менить
+    {
+        foreach ($tree as $item) {
+            if (isset($item['isCategory'])) {
+
+                /** @var msCategory $find */
+                $find = $this->modx->getObject('msCategory', [
+                    'pagetitle' => $item['text'],
+                    'parent' => $parentID
+                ]);
+
+                if (!$find) {
+                    $new = $this->_createCategory($item, $parentID);
+                    if (!$new) {
+                        continue;
+                    }
+                    $newParent = $new->get('id');
+                } else {
+                    $newParent = $find->get('id');
+                }
+
+                if (isset($item['children'])) {
+                    $this->importTask($item['children'], $newParent);
+                }
+            } else {
+                $created = $this->_createProduct($item, $parentID);
+
+                if (is_array($created)) {
+                    $this->modx->log(1, "Ошибка парсинга: \n" . print_r($created, true));
+                    continue;
+                }
+
+                $productID = $created->get('id');
+            }
+
+
+        }
+    }
+
+
+    /**
+     * @param array $product
+     * @param int $parentID
+     * @return array|msProduct
+     */
+    protected function _createProduct(array $product, int $parentID)
+    {
+        /**
+         * TODO: Vendor
+         * TODO: Options
+         * TODO: Images
+         */
+
+        $data = [
+            'class_key' => 'msProduct',
+            'pagetitle' => $product['text'],
+            'parent' => $parentID,
+            'template' => $this->modx->getOption('ms2_template_product_default', [], 0),
+            'show_in_tree' => 0,
+            'published' => 1,
+
+            //Данные
+            'price' => $product['price'],
+            'old_price' => 0,
+            'favorite' => 0,
+            'popular' => 0,
+
+            //стандартные опции товара
+//            'color' => array('Синий', 'Красный'),
+//            'size' => array('S', 'M'),
+//            'tags' => array('Тег1', 'Тег2'),
+
+            //свои опции созданные в настройках
+//            'options-КЛЮЧ_ОПЦИИ' => array('значение1', 'значение2'),
+
+            //TV - 10 это id TV
+//            'tv10' => 'Значение'
+        ];
+
+        $action = 'create';
+
+        /** @var msProduct|null $find */
+        $find = $this->modx->getObject('msProduct', [
+            'pagetitle' => $product['text'],
+            'parent' => $parentID,
+        ]);
+
+        if ($find) {
+            $action = 'update';
+            $data['id'] = $find->get('id');
+            $data['context_key'] = 'web';
+        }
+
+        /** @var modProcessorResponse $response */
+        $response = $this->modx->runProcessor('resource/' . $action, $data);
+
+        if ($response->isError()) {
+            return $response->getResponse();
+        }
+
+        /** @var msProduct $obj */
+        $obj = $this->modx->getObject('msProduct', $response->response['object']['id']);
+        return $obj;
+    }
+
+    /**
+     * @param array $category
+     * @param integer $parentID
+     * @return bool|msCategory
+     */
+    protected function _createCategory(array $category, $parentID)
+    {
+        /** @var msCategory $new */
+        $new = $this->modx->newObject('msCategory');
+        $new->fromArray([
+            'pagetitle' => $category['text'],
+            'parent' => $parentID,
+            'class_key' => 'msCategory',
+            'published' => 1,
+            'alias' => '',
+            'template' => $this->modx->getOption('ms2_template_category_default', [], 0),
+        ]);
+        if (!$new->save()) {
+            return false;
+        };
+        return $new;
     }
 
 }

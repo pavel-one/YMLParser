@@ -2,6 +2,9 @@
 
 class YMLParserLink extends xPDOSimpleObject
 {
+    /**
+     * @return bool|array
+     */
     public function getTree()
     {
         /** @var YMLParser $YMLParser */
