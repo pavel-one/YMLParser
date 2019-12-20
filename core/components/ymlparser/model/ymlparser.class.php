@@ -232,10 +232,10 @@ class YMLParser
     {
         $this->modx->log(1, print_r($product, 1));
         /**
-         * TODO: Vendor
          * TODO: Options
          * TODO: Images
          */
+
 
         $data = [
             'class_key' => 'msProduct',
@@ -263,6 +263,10 @@ class YMLParser
 //            'tv10' => 'Значение'
         ];
 
+        if ($product['vendor']) {
+            $data['vendor'] = $this->_createVendor($product['vendor']);
+        }
+
         $action = 'create';
 
         /** @var msProduct|null $find */
@@ -287,6 +291,29 @@ class YMLParser
         /** @var msProduct $obj */
         $obj = $this->modx->getObject('msProduct', $response->response['object']['id']);
         return $obj;
+    }
+
+    /**
+     * @param string $vendorName
+     * @return bool|int
+     */
+    public function _createVendor(string $vendorName)
+    {
+        /** @var msVendor $find */
+        $find = $this->modx->getObject('msVendor', [
+            'name' => $vendorName
+        ]);
+
+        if ($find) {
+            return $find->id;
+        }
+        /** @var msVendor $new */
+        $new = $this->modx->newObject('msVendor');
+        $new->set('name', $vendorName);
+        if ($new->save()) {
+            return $new->id;
+        }
+        return false;
     }
 
     /**
