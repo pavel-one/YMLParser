@@ -3,3 +3,4 @@ Changelog for YMLParser.
 1.0.0-beta
 ==============
 - Init
+- Beta testing
