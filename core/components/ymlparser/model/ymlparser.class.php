@@ -27,6 +27,7 @@ class YMLParser
             'modelPath' => $corePath . 'model/',
             'tmpPath' => $corePath . 'tmp/',
             'processorsPath' => $corePath . 'processors/',
+            'ms2processorsPath' => MODX_CORE_PATH . 'components/minishop2/processors/mgr/',
 
             'connectorUrl' => $assetsUrl . 'connector.php',
             'assetsUrl' => $assetsUrl,
@@ -243,11 +244,6 @@ class YMLParser
      */
     protected function _createProduct(array $product, int $parentID)
     {
-        $this->modx->log(1, print_r($product, 1));
-        /**
-         * TODO: Options
-         */
-
 
         $data = [
             'class_key' => 'msProduct',
@@ -268,12 +264,14 @@ class YMLParser
 //            'size' => array('S', 'M'),
 //            'tags' => array('Тег1', 'Тег2'),
 
-            //свои опции созданные в настройках
-//            'options-КЛЮЧ_ОПЦИИ' => array('значение1', 'значение2'),
-
-            //TV - 10 это id TV
+            //TV
 //            'tv10' => 'Значение'
         ];
+
+        if (count($product['options'])) {
+            $optionsArray = $this->_createOptions($product['options'], $parentID);
+            $data = array_merge($data, $optionsArray);
+        }
 
         if ($product['vendor']) {
             $data['vendor'] = $this->_createVendor($product['vendor']);
@@ -304,6 +302,78 @@ class YMLParser
         /** @var msProduct $obj */
         $obj = $this->modx->getObject('msProduct', $response->response['object']['id']);
         return $obj;
+    }
+
+    /**
+     * @param array $options
+     * @param integer $parentID
+     * @return array
+     */
+    public function _createOptions(array $options, int $parentID)
+    {
+        $out = [];
+
+        foreach ($options as $option) {
+
+            /** @var msOption $find */
+            $find = $this->modx->getObject('msOption', [
+                'caption' => $option['name']
+            ]);
+
+            if ($find) {
+                //Ищем категорию опции
+                $findCat = $this->modx->getObject('msCategoryOption', [
+                    'option_id' => $find->get('id'),
+                    'category_id' => $parentID
+                ]);
+                //Если не найдена, то создаем
+                if (!$findCat) {
+                    /** @var msCategoryOption $newCat */
+                    $newCat = $this->modx->newObject('msCategoryOption');
+
+                    $newCat->set('value', '');
+                    $newCat->set('active', 1);
+                    $newCat->set('option_id', $find->get('id'));
+                    $newCat->set('category_id', $parentID);
+
+                    $newCat->save();
+                }
+
+                $out['options-'.$find->get('key')] = $option['value'];
+                continue;
+            }
+
+            //Создаем опцию
+            $name = $option['name'];
+            $key = modResource::filterPathSegment($this->modx, $name);
+            $key = preg_replace('/[^a-zA-Z0-9-]/', '_', $key);
+            /** @var msOption $newOption */
+            $newOption = $this->modx->newObject('msOption');
+            $newOption->fromArray([
+                'type' => 'textfield',
+                'measure_unit' => $option['unit'],
+                'caption' => $name,
+                'category' => 0,
+                'key' => $key
+            ]);
+            if (!$newOption->save()) continue;
+
+            //Создаем категорию
+            /** @var msCategoryOption $newCat */
+            $newCat = $this->modx->newObject('msCategoryOption');
+
+            $newCat->set('value', '');
+            $newCat->set('active', 1);
+            $newCat->set('option_id', $newOption->get('id'));
+            $newCat->set('category_id', $parentID);
+
+            if (!$newCat->save()) continue;
+
+            $out['options-'.$key] = $option['value'];
+        }
+
+
+        return $out;
     }
 
     /**
@@ -338,6 +408,8 @@ class YMLParser
     {
         if (!$this->modx->getCount('msProduct', $productID)) return false;
 
+        $this->clearTempDirectory();
+
         foreach ($images as $image) {
             $name = basename($image);
             $path = $this->config['tmpPath'] . $name;
@@ -351,7 +423,7 @@ class YMLParser
             $this->modx->error->reset();
             /** @var modProcessorResponse $upload */
             $upload = $this->modx->runProcessor('gallery/upload', $gallery, array(
-                'processors_path' => MODX_CORE_PATH . 'components/minishop2/processors/mgr/'
+                'processors_path' => $this->config['ms2processorsPath']
             ));
 
             if ($upload->isError()) {
@@ -361,6 +433,18 @@ class YMLParser
             }
         }
         return true;
+    }
+
+    /**
+     * Очищает директорию с временными файлами
+     */
+    public function clearTempDirectory()
+    {
+        if (file_exists($this->config['tmpPath'])) {
+            foreach (glob($this->config['tmpPath'] . '*') as $file) {
+                unlink($file);
+            }
+        }
     }
 
     /**
@@ -377,6 +461,7 @@ class YMLParser
             'parent' => $parentID,
             'class_key' => 'msCategory',
             'published' => 1,
+            'isfolder' => 1,
             'alias' => '',
             'template' => $this->modx->getOption('ms2_template_category_default', [], 0),
         ]);
