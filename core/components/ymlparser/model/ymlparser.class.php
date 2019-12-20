@@ -109,7 +109,9 @@ class YMLParser
             $parentsArray[$item['parentId']][] = $item;
         }
 
-        $firstKey = array_key_first($parentsArray);
+        reset($parentsArray);
+
+        $firstKey = key($parentsArray);
         $tree = $this->_prepareTree($parentsArray, $parentsArray[$firstKey], $products);
 
 
@@ -211,6 +213,7 @@ class YMLParser
      */
     protected function _createProduct(array $product, int $parentID)
     {
+        $this->modx->log(1, print_r($product, 1));
         /**
          * TODO: Vendor
          * TODO: Options
