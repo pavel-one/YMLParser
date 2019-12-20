@@ -25,6 +25,7 @@ class YMLParser
         $this->config = array_merge([
             'corePath' => $corePath,
             'modelPath' => $corePath . 'model/',
+            'tmpPath' => $corePath . 'tmp/',
             'processorsPath' => $corePath . 'processors/',
 
             'connectorUrl' => $assetsUrl . 'connector.php',
@@ -84,7 +85,8 @@ class YMLParser
                 'article' => $item->first('barcode') ? $item->first('barcode')->text() : '',
                 'weight' => $item->first('weight') ? $item->first('weight')->text() : '',
                 'icon' => 'icon icon-shopping-cart',
-                'options' => []
+                'options' => [],
+                'images' => []
             ];
 
             $options = $item->find('param');
@@ -97,6 +99,13 @@ class YMLParser
                             'value' => $option->text()
                         ];
                     }
+                }
+            }
+
+            $images = $item->find('picture');
+            if (count($images)) {
+                foreach ($images as $image) {
+                    $product['images'][] = $image->text();
                 }
             }
 
@@ -216,6 +225,10 @@ class YMLParser
                 }
 
                 $productID = $created->get('id');
+
+                if (count($item['images'])) {
+                    $this->_createImages($item['images'], $productID);
+                }
             }
 
 
@@ -233,7 +246,6 @@ class YMLParser
         $this->modx->log(1, print_r($product, 1));
         /**
          * TODO: Options
-         * TODO: Images
          */
 
 
@@ -281,6 +293,7 @@ class YMLParser
             $data['context_key'] = 'web';
         }
 
+        $this->modx->error->reset();
         /** @var modProcessorResponse $response */
         $response = $this->modx->runProcessor('resource/' . $action, $data);
 
@@ -314,6 +327,40 @@ class YMLParser
             return $new->id;
         }
         return false;
+    }
+
+    /**
+     * @param array $images
+     * @param int $productID
+     * @return bool
+     */
+    public function _createImages(array $images, int $productID)
+    {
+        if (!$this->modx->getCount('msProduct', $productID)) return false;
+
+        foreach ($images as $image) {
+            $name = basename($image);
+            $path = $this->config['tmpPath'] . $name;
+            $imageData = file_get_contents($image);
+            file_put_contents($path, $imageData);
+            $gallery = array(
+                'id' => $productID,
+                'file' => $path
+            );
+
+            $this->modx->error->reset();
+            /** @var modProcessorResponse $upload */
+            $upload = $this->modx->runProcessor('gallery/upload', $gallery, array(
+                'processors_path' => MODX_CORE_PATH . 'components/minishop2/processors/mgr/'
+            ));
+
+            if ($upload->isError()) {
+                $this->modx->log(1, "Ошибка создания изображения для товара с id = $productID : \n" . $upload->getMessage());
+                continue;
+//                return $upload->getResponse();
+            }
+        }
+        return true;
     }
 
     /**
