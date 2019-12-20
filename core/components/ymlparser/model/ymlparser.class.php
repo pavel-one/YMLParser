@@ -222,7 +222,7 @@ class YMLParser
             'pagetitle' => $product['text'],
             'parent' => $parentID,
             'template' => $this->modx->getOption('ms2_template_product_default', [], 0),
-            'show_in_tree' => 0,
+            'show_in_tree' => $this->modx->getOption('ms2_product_show_in_tree_default', [], 0),
             'published' => 1,
 
             //Данные
