@@ -80,8 +80,25 @@ class YMLParser
                 'url' => $item->first('url') ? $item->first('url')->text() : '',
                 'vendor' => $item->first('vendor') ? $item->first('vendor')->text() : '',
                 'price' => $item->first('price') ? $item->first('price')->text() : '',
+                'content' => $item->first('description') ? $item->first('description')->html() : '',
+                'article' => $item->first('barcode') ? $item->first('barcode')->text() : '',
+                'weight' => $item->first('weight') ? $item->first('weight')->text() : '',
                 'icon' => 'icon icon-shopping-cart',
+                'options' => []
             ];
+
+            $options = $item->find('param');
+            if (count($options)) {
+                foreach ($options as $option) {
+                    if ($t_name = $option->attr('name')) {
+                        $product['options'][] = [
+                            'name' => $t_name,
+                            'unit' => $option->attr('unit'),
+                            'value' => $option->text()
+                        ];
+                    }
+                }
+            }
 
             $out['products_parents'][$parentID][] = $product;
             $out['products_list'][] = $product;
