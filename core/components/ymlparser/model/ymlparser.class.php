@@ -82,7 +82,7 @@ class YMLParser
                 'url' => $item->first('url') ? $item->first('url')->text() : '',
                 'vendor' => $item->first('vendor') ? $item->first('vendor')->text() : '',
                 'price' => $item->first('price') ? $item->first('price')->text() : '',
-                'content' => $item->first('description') ? $item->first('description')->html() : '',
+                'content' => $item->first('description') ? str_replace(['<![CDATA[', ']]>'], '', $item->first('description')->text()) : '',
                 'article' => $item->first('barcode') ? $item->first('barcode')->text() : '',
                 'weight' => $item->first('weight') ? $item->first('weight')->text() : '',
                 'icon' => 'icon icon-shopping-cart',
@@ -252,6 +252,7 @@ class YMLParser
             'template' => $this->modx->getOption('ms2_template_product_default', [], 0),
             'show_in_tree' => $this->modx->getOption('ms2_product_show_in_tree_default', [], 0),
             'published' => 1,
+            'content' => $product['content'],
 
             //Данные
             'price' => $product['price'],
@@ -339,7 +340,7 @@ class YMLParser
                     $newCat->save();
                 }
 
-                $out['options-'.$find->get('key')] = $option['value'];
+                $out['options-' . $find->get('key')] = $option['value'];
                 continue;
             }
 
@@ -369,7 +370,7 @@ class YMLParser
 
             if (!$newCat->save()) continue;
 
-            $out['options-'.$key] = $option['value'];
+            $out['options-' . $key] = $option['value'];
         }
 
 

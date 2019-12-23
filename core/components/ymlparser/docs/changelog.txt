@@ -1,5 +1,13 @@
 Changelog for YMLParser.
 
+1.0.2-beta
+==============
+- Fix import content field
+
+1.0.1-beta
+==============
+- Fix content field
+
 1.0.0-beta
 ==============
 - Init
